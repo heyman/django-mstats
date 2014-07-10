@@ -1,0 +1,11 @@
+{% extends "mstats/base.html" %}
+
+{% block content %}
+  <h1>Stats</h1>
+  
+  <ul>
+    {% for stats in stats_classes %}
+      <li><a href="{% url "mstats_stats" stats.key %}">{{ stats.get_name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

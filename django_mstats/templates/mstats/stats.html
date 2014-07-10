@@ -1,0 +1,51 @@
+{% extends "mstats/base.html" %}
+
+{% block content %}
+  <h1>{{ stats.get_name }}</h1>
+  
+  <div class="settings">
+    <div class="intervals">
+      {% for inter, label in intervals %}
+        {% if inter != interval %}
+          <a href="?interval={{ inter }}">{{ label }}</a>
+        {% else %}
+          {{ label }}
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    <form action="" method="get">
+      <input type="text" name="start_time" value="{{ start_time }}">
+      <input type="text" name="stop_time" value="{{ stop_time }}">
+      <input type="hidden" name="interval" value="{{ interval }}">
+      <button type="submit">Change time range</button>
+    </form>
+  </div>
+  
+  <canvas id="chart" width="1000" height="600"></canvas>
+{% endblock %}
+
+{% block script %}
+  {{ block.super }}
+    
+  <script>
+    var ctx = document.getElementById("chart").getContext("2d");
+    var data = {
+        labels: {{ labels|safe }}, //["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [
+            {
+                label: "{{ stats.get_name }}",
+                fillColor: "rgba(180,200,220,0.2)",
+                strokeColor: "rgba(180,200,220,1)",
+                pointColor: "rgba(180,200,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: {{ values|safe }}
+            }
+        ]
+    };
+    
+    var chart = new Chart(ctx).Line(data, {bezierCurve:false});
+  </script>
+{% endblock %}

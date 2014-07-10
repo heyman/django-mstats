@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Site Statistics</title>
+    
+    <style type="text/css">
+      .settings {
+        margin-bottom: 40px;
+      }
+      .settings .intervals {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+    
+    {% block script %}
+      <script src="{% url "mstats_chart_js" %}"></script>
+    {% endblock %}
+  </body>
+</html>
