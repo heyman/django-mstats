@@ -2,7 +2,7 @@
 Django MStats
 =============
 
-**NOTE**: Django MStats is in early development and the API is very likely to change.
+**Please note**: *Django MStats is in early development and the API is very likely to change.*
 
 MStats is a super simple, re-usable, stateless Django app for visualizing and browsing statistics, mainly 
 based on existing Django models.
