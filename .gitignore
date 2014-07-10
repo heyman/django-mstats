@@ -3,3 +3,4 @@ django-mstats.wpr
 django_mstats.egg-info/**
 docs/_build/**
 build/**
+dist/**
