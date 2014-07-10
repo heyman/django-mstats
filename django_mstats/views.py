@@ -3,13 +3,17 @@ import json
 from datetime import datetime, timedelta
 
 from django.conf import settings
+from django.contrib.auth.decorators import user_passes_test
 from django.http import Http404, HttpResponse
 from django.utils.importlib import import_module
 from django.views import generic
 
+from .decorators import class_view_decorator
 from .models import stats_classes
 
 DATE_FORMAT = "%Y-%m-%d %H:%M"
+
+superuser_required = user_passes_test(lambda u: u.is_superuser)
 
 def import_stats_modules():
     for app in settings.INSTALLED_APPS:
@@ -23,6 +27,7 @@ def import_stats_modules():
             pass
 
 
+@class_view_decorator(superuser_required)
 class OverviewView(generic.TemplateView):
     template_name = "mstats/overview.html"
     
@@ -31,7 +36,8 @@ class OverviewView(generic.TemplateView):
         return {
             "stats_classes": stats_classes.values(),
         }
-    
+
+@class_view_decorator(superuser_required)
 class StatsView(generic.TemplateView):
     template_name = "mstats/stats.html"
     
@@ -94,6 +100,7 @@ class StatsView(generic.TemplateView):
             "stop_time": stop_time.strftime(DATE_FORMAT),
         }
 
+@class_view_decorator(superuser_required)
 class ChartJsView(generic.View):
     def get(self, request):
         with file(os.path.join(os.path.abspath(os.path.dirname(__file__)), "static", "Chart.min.js")) as f:
