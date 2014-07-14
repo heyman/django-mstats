@@ -3,7 +3,7 @@ from io import open
 
 setup(
     name='django-mstats',
-    version='0.1.1',
+    version='0.1.2',
     description='Simple, re-usable, stateless Django app for visualizing and browsing '
                 'statistics, mainly based on your existing Django models.',
     long_description=open('README.rst', encoding='utf-8').read(),

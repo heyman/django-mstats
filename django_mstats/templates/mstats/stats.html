@@ -1,6 +1,8 @@
 {% extends "mstats/base.html" %}
 
 {% block content %}
+  <a href="{% url "mstats_overview" %}">Back to overview</a>
+  
   <h1>{{ stats.get_name }}</h1>
   
   <div class="settings">
